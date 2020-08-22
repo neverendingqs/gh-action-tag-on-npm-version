@@ -1,6 +1,7 @@
 # gh-action-tag-on-npm-version
 
-Creates a new Git tag whenever the npm package version has changed.
+Creates a new Git tag whenever the npm package version has changed. Works well
+with [publish-me-maybe](https://www.npmjs.com/package/publish-me-maybe).
 
 ## Example usage
 

@@ -1,0 +1,22 @@
+name: Tag on NPM Package Version Change
+branding:
+  icon: package
+  color: green
+description: Creates a new Git tag whenever the npm package version has changed.
+inputs:
+  git-user-email:
+    description: Git user.email to use.
+    default: 41898282+github-actions[bot]@users.noreply.github.com
+  git-user-name:
+    description: Git user.name.
+    default: github-actions[bot]
+  tag-prefix:
+    description: Prefix prepended to the version in package.json
+    default: v
+runs:
+  using: docker
+  image: Dockerfile
+  args:
+    - ${{ inputs.git-user-name }}
+    - ${{ inputs.git-user-email }}
+    - ${{ inputs.tag-prefix }}

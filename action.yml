@@ -38,11 +38,11 @@ runs:
           git tag -a ${TAG} -m ${TAG}
           git push --follow-tags
           
-          echo "::set-output name=tag-created::true"
+          echo "tag-created=true" >> "${GITHUB_OUTPUT}"
         else
           echo "'${TAG}' already exists. No action taken."
           
-          echo "::set-output name=tag-created::false"
+          echo "tag-created=false" >> "${GITHUB_OUTPUT}"
         fi
       env:
         GIT_USER_NAME: ${{ inputs.git-user-name }}

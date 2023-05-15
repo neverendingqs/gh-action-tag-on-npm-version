@@ -13,10 +13,15 @@ inputs:
   tag-prefix:
     description: Prefix prepended to the version in package.json
     default: v
+outputs:
+  tag-created: 
+    description: "Whether the tag was created"
+    value: ${{ steps.create-tag.outputs.tag-created }}
 runs:
   using: composite
   steps:
-    - shell: bash
+    - id: create-tag
+      shell: bash
       run: |
         #!/bin/bash
         set -eux
@@ -32,8 +37,12 @@ runs:
 
           git tag -a ${TAG} -m ${TAG}
           git push --follow-tags
+          
+          echo "::set-output name=tag-created::true"
         else
           echo "'${TAG}' already exists. No action taken."
+          
+          echo "::set-output name=tag-created::false"
         fi
       env:
         GIT_USER_NAME: ${{ inputs.git-user-name }}

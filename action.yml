@@ -14,6 +14,9 @@ inputs:
     description: Prefix prepended to the version in package.json
     default: v
 outputs:
+  tag:
+    description: "The value of the created tag (if any)"
+    value: ${{ steps.create-tag.outputs.tag }}
   tag-created: 
     description: "Whether the tag was created"
     value: ${{ steps.create-tag.outputs.tag-created }}
@@ -38,6 +41,7 @@ runs:
           git tag -a ${TAG} -m ${TAG}
           git push --follow-tags
           
+          echo "tag=${TAG}" >> "${GITHUB_OUTPUT}"
           echo "tag-created=true" >> "${GITHUB_OUTPUT}"
         else
           echo "'${TAG}' already exists. No action taken."
